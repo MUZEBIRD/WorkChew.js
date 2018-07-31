@@ -1,0 +1,23 @@
+{
+  "name": "workchew",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.87.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MUZEBIRD/WorkChew.js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MUZEBIRD/WorkChew.js/issues"
+  },
+  "homepage": "https://github.com/MUZEBIRD/WorkChew.js#readme"
+}
