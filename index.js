@@ -12,6 +12,14 @@ window.onload = function() {
           .then((loginResponse) => {
 
             console.log("login response", loginResponse)
+            var {user} = loginResponse
+
+            if (user && user.token) {
+
+              this.storeLocalWorkchewUser(user)
+
+
+            }
 
 
           })
@@ -35,9 +43,21 @@ window.onload = function() {
 
     },
 
-    placeDiscountElement: function(userInfo) {},
+    showDiscountElement: function(userInfo) {
 
-    removeDiscountElement: function(userInfo) {},
+      var memberperks = document.getElementById('memberperks')
+
+      memberperks.style.display = "block"
+
+    },
+
+    hideDiscountElement: function(userInfo) {
+
+      var memberperks = document.getElementById('memberperks')
+
+      memberperks.style.display = "none"
+
+    },
 
     loginWithToken: function(token) {
 
