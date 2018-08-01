@@ -8,7 +8,13 @@ window.onload = function() {
 
       if (!token) {
 
-        token = this.getLocalWorkchewUser().token;
+        var localUser = this.getLocalWorkchewUser()
+
+        if (localUser && localUser.token) {
+
+          token = localUser.token
+
+        }
 
         console.log("found local token")
       }
@@ -34,6 +40,10 @@ window.onload = function() {
             }
 
           })
+      } else {
+
+        this.hideDiscountElement()
+
       }
 
     },
