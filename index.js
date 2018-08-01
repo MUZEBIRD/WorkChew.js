@@ -6,6 +6,13 @@ window.onload = function() {
 
       var {token} = this.getQueryParams();
 
+      if (!token) {
+
+        token = getLocalWorkchewUser().token;
+
+        console.log("found local token")
+      }
+
       if (token) {
         this.loginWithToken(token)
 
@@ -18,13 +25,24 @@ window.onload = function() {
 
               this.storeLocalWorkchewUser(user)
 
+              this.showDiscountElement()
+
+            } else {
+
+              this.hideDiscountElement()
 
             }
-
 
           })
       }
 
+    },
+
+    goToLocationProfilePage: function(fileName) {
+
+      var user = this.getLocalWorkchewUser();
+
+      window.location.href = "http://www.workchew.com" + fileName + "?token=" + user.token
     },
 
     storeLocalWorkchewUser: function(userInfo) {
@@ -55,8 +73,10 @@ window.onload = function() {
 
       var memberperks = document.getElementById('memberperks')
 
-      memberperks.style.display = "none"
+      if (memberperks) {
+        memberperks.style.display = "none"
 
+      }
     },
 
     loginWithToken: function(token) {
