@@ -1,4 +1,3 @@
-
 window.onload = function() {
 
   window.workchewConnector = {
@@ -19,6 +18,26 @@ window.onload = function() {
       }
 
     },
+
+    storeLocalWorkchewUser: function(userInfo) {
+
+      localStorage.addItem("LocalWorkchewUser", JSON.stringify(userInfo))
+
+    },
+
+    getLocalWorkchewUser: function(userInfo) {
+
+      var local = localStorage.getItem("LocalWorkchewUser");
+
+      var localUser = JSON.parse(local);
+
+      return localUser
+
+    },
+
+    placeDiscountElement: function(userInfo) {},
+
+    removeDiscountElement: function(userInfo) {},
 
     loginWithToken: function(token) {
 
