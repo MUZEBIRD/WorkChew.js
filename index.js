@@ -48,6 +48,30 @@ window.onload = function() {
 
     },
 
+    setProfileLink: function() {
+
+      var viewprofile = document.getElementById('viewprofile');
+
+      if (viewprofile) {
+
+        var user = this.getLocalWorkchewUser();
+        if (user && user.token) {
+
+          viewprofile.href = "https://app.workchew.com/#/getProfileWithToken?token=" + user.token
+
+        }
+      }
+
+    },
+    goToProfile: function() {
+      var user = this.getLocalWorkchewUser();
+      if (user && user.token) {
+
+        window.location.href = "https://app.workchew.com/#/getProfileWithToken?token=" + user.token
+
+      }
+
+    },
     goToLocationProfilePage: function(fileName) {
 
       var user = this.getLocalWorkchewUser();
