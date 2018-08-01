@@ -8,7 +8,7 @@ window.onload = function() {
 
       if (!token) {
 
-        token = getLocalWorkchewUser().token;
+        token = this.getLocalWorkchewUser().token;
 
         console.log("found local token")
       }
@@ -47,7 +47,7 @@ window.onload = function() {
 
     storeLocalWorkchewUser: function(userInfo) {
 
-      localStorage.addItem("LocalWorkchewUser", JSON.stringify(userInfo))
+      localStorage.setItem("LocalWorkchewUser", JSON.stringify(userInfo))
 
     },
 
@@ -64,9 +64,10 @@ window.onload = function() {
     showDiscountElement: function(userInfo) {
 
       var memberperks = document.getElementById('memberperks')
+      if (memberperks) {
 
-      memberperks.style.display = "block"
-
+        memberperks.style.display = "block"
+      }
     },
 
     hideDiscountElement: function(userInfo) {
@@ -131,6 +132,10 @@ window.onload = function() {
         console.log('queryParams', queryParams)
 
         return queryParams
+
+      } else {
+
+        return {};
 
       }
 
