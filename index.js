@@ -19,6 +19,9 @@ window.onload = function() {
         console.log("found local token")
       }
 
+      this.setProfileLink()
+
+
       if (token) {
         this.loginWithToken(token)
 
@@ -54,12 +57,20 @@ window.onload = function() {
 
       var viewprofile = document.getElementById('viewprofile');
 
+      viewprofile.href = "https://app.workchew.com/#/user-profile-signin"
+
+
       if (viewprofile) {
 
         var user = this.getLocalWorkchewUser();
         if (user && user.token) {
 
-          viewprofile.href = "https://app.workchew.com/#/getProfileWithToken?token=" + user.token
+          viewprofile.href = "https://app.workchew.com/#/user-profile-signin?token=" + user.token
+
+        } else {
+
+          viewprofile.href = "https://app.workchew.com/#/user-profile-signin"
+
 
         }
       }
@@ -70,6 +81,11 @@ window.onload = function() {
       if (user && user.token) {
 
         window.location.href = "https://app.workchew.com/#/user-profile-signin?token=" + user.token
+
+      } else {
+
+        window.location.href = "https://app.workchew.com/#/user-profile-signin"
+
 
       }
 
