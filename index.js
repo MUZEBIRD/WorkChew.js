@@ -33,6 +33,8 @@ window.onload = function() {
 
               this.showDiscountElement()
 
+              this.setProfileLink()
+
             } else {
 
               this.hideDiscountElement()
@@ -67,7 +69,7 @@ window.onload = function() {
       var user = this.getLocalWorkchewUser();
       if (user && user.token) {
 
-        window.location.href = "https://app.workchew.com/#/getProfileWithToken?token=" + user.token
+        window.location.href = "https://app.workchew.com/#/user-profile-signin?token=" + user.token
 
       }
 
