@@ -57,10 +57,10 @@ window.onload = function() {
 
       var viewprofile = document.getElementById('viewprofile');
 
-      viewprofile.href = "https://app.workchew.com/#/user-profile-signin"
-
 
       if (viewprofile) {
+
+        viewprofile.href = "https://app.workchew.com/#/user-profile-signin"
 
         var user = this.getLocalWorkchewUser();
         if (user && user.token) {
