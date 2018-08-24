@@ -6,95 +6,13 @@ window.onload = function() {
 
       var {token} = this.getQueryParams();
 
-      if (!token) {
-
-        var localUser = this.getLocalWorkchewUser()
-
-        if (localUser && localUser.token) {
-
-          token = localUser.token
-
-        }
-
-        console.log("found local token")
-      }
-
-      this.setProfileLink()
-
+      console.log("Membee token", token)
 
       if (token) {
-        this.loginWithToken(token)
-
-          .then((loginResponse) => {
-
-            console.log("login response", loginResponse)
-            var {user} = loginResponse
-
-            if (user && user.token) {
-
-              this.storeLocalWorkchewUser(user)
-
-              this.showDiscountElement()
-
-              this.setProfileLink()
-
-            } else {
-
-              this.hideDiscountElement()
-
-            }
-
-          })
-      } else {
-
-        this.hideDiscountElement()
-
-      }
-
-    },
-
-    setProfileLink: function() {
-
-      var viewprofile = document.getElementById('viewprofile');
-
-
-      if (viewprofile) {
-
-        viewprofile.href = "https://app.workchew.com/#/user-profile-signin"
-
-        var user = this.getLocalWorkchewUser();
-        if (user && user.token) {
-
-          viewprofile.href = "https://app.workchew.com/#/user-profile-signin?token=" + user.token
-
-        } else {
-
-          viewprofile.href = "https://app.workchew.com/#/user-profile-signin"
-
-
-        }
-      }
-
-    },
-    goToProfile: function() {
-      var user = this.getLocalWorkchewUser();
-      if (user && user.token) {
-
-        window.location.href = "https://app.workchew.com/#/user-profile-signin?token=" + user.token
-
-      } else {
-
-        window.location.href = "https://app.workchew.com/#/user-profile-signin"
 
 
       }
 
-    },
-    goToLocationProfilePage: function(fileName) {
-
-      var user = this.getLocalWorkchewUser();
-
-      window.location.href = "http://www.workchew.com" + fileName + "?token=" + user.token
     },
 
     storeLocalWorkchewUser: function(userInfo) {
@@ -113,41 +31,56 @@ window.onload = function() {
 
     },
 
-    showDiscountElement: function(userInfo) {
+    checkLogin: function(token) {
 
-      var memberperks = document.getElementById('memberperks')
-      if (memberperks) {
+      var checkLoginUrl = "https://memberservices.membee.com/feeds/login/LoginCheck.aspx"
+        + "?"
+        + "clientid=501"
+        + "&"
+        + "appid=2086"
+        + "&"
+        + "destURL=https://www.workchew.com/"
 
-        memberperks.style.display = "block"
-      }
+      window.loaction.href = checkLoginUrl
+
     },
 
-    hideDiscountElement: function(userInfo) {
+    logout: function(token) {
 
-      var memberperks = document.getElementById('memberperks')
+      var logoutUrl = "https://memberservices.membee.com/feeds/login/Logout.aspx"
+        + "?"
+        + "clientid=501"
+        + "&"
+        + "appid=2086"
+        + "&"
+        + "destURL=https://www.workchew.com/"
 
-      if (memberperks) {
-        memberperks.style.display = "none"
+      window.loaction.href = logoutUrl
 
-      }
     },
 
-    loginWithToken: function(token) {
+    exchangeToken: function(token) {
 
-      return fetch("https://app.workchew.com/orderslogin", {
+      var exchangeTokenUrl = "https://memberservices.membee.com/feeds/Profile/ExchangeTokenForID"
+        + "?"
+        + "APIKEY=ba9fae31-e8c4-47ba-971c-4567bd5593eb"
+        + "&"
+        + "clientid=501"
+        + "&"
+        + "appid=2086"
+        + "&"
+        + `Token=${token}`
 
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
+      console.log("exchangeTokenUrl", exchangeTokenUrl)
 
-        },
-        body: JSON.stringify({
-          token
-        })
+      return fetch(exchangeTokenUrl, {
+
+        method: "GET",
+
       })
         .then((res) => res.json())
-
     },
+
     getQueryParams: function() {
 
       var url = window.location.href;
