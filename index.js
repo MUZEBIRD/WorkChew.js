@@ -10,7 +10,7 @@ window.onload = function() {
 
       console.log("Membee token", token)
 
-      this.initFirebaseConfig()
+      if (window.firebase) this.initFirebaseConfig()
 
       if (token) {
 
@@ -59,6 +59,8 @@ window.onload = function() {
             .then(event => {
               console.log("form saved", event);
             });
+
+          window.location.reload()
         };
 
       }
