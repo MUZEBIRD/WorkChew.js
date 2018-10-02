@@ -1,3 +1,5 @@
+
+
 window.onload = function() {
 
   window.workchewConnector = {
@@ -8,8 +10,56 @@ window.onload = function() {
 
       console.log("Membee token", token)
 
+      this.initFirebaseConfig()
+
       if (token) {
 
+
+        this.exchangeToken(token).then((data) => {
+          console.log(data)
+        })
+
+      }
+
+    },
+
+    initFirebaseConfig: () => {
+
+      var config = {
+        apiKey: "AIzaSyDrql8_CPnvotXoTT4PxINVK46_p9yXG1w",
+        authDomain: "work-chew-forms.firebaseapp.com",
+        databaseURL: "https://work-chew-forms.firebaseio.com",
+        projectId: "work-chew-forms",
+        storageBucket: "work-chew-forms.appspot.com",
+        messagingSenderId: "480936302656"
+      };
+
+      firebase.initializeApp(config);
+
+      const firestore = firebase.firestore();
+
+      const settings = {
+
+        timestampsInSnapshots: true
+      };
+
+      firestore.settings(settings);
+
+
+      if (window.quickFormer) {
+        console.log("init quick former");
+
+        quickFormer.onSave = event => {
+          console.log("onSave local page", event);
+
+          firebase
+            .firestore()
+            .collection("corpForms")
+            .add(event)
+            .then(event => {
+              console.log("form saved", event);
+            });
+        };
 
       }
 
@@ -33,13 +83,13 @@ window.onload = function() {
 
     checkLogin: function(token) {
 
-      var checkLoginUrl = "https://memberservices.membee.com/feeds/login/LoginCheck.aspx"
-        + "?"
-        + "clientid=501"
-        + "&"
-        + "appid=2086"
-        + "&"
-        + "destURL=https://www.workchew.com/"
+      var checkLoginUrl = "https://memberservices.membee.com/feeds/login/LoginCheck.aspx" +
+        "?" +
+        "clientid=501" +
+        "&" +
+        "appid=2086" +
+        "&" +
+        "destURL=https://www.workchew.com/"
 
       window.loaction.href = checkLoginUrl
 
@@ -47,13 +97,13 @@ window.onload = function() {
 
     logout: function(token) {
 
-      var logoutUrl = "https://memberservices.membee.com/feeds/login/Logout.aspx"
-        + "?"
-        + "clientid=501"
-        + "&"
-        + "appid=2086"
-        + "&"
-        + "destURL=https://www.workchew.com/"
+      var logoutUrl = "https://memberservices.membee.com/feeds/login/Logout.aspx" +
+        "?" +
+        "clientid=501" +
+        "&" +
+        "appid=2086" +
+        "&" +
+        "destURL=https://www.workchew.com/"
 
       window.loaction.href = logoutUrl
 
@@ -61,15 +111,15 @@ window.onload = function() {
 
     exchangeToken: function(token) {
 
-      var exchangeTokenUrl = "https://memberservices.membee.com/feeds/Profile/ExchangeTokenForID"
-        + "?"
-        + "APIKEY=ba9fae31-e8c4-47ba-971c-4567bd5593eb"
-        + "&"
-        + "clientid=501"
-        + "&"
-        + "appid=2086"
-        + "&"
-        + `Token=${token}`
+      var exchangeTokenUrl = "https://memberservices.membee.com/feeds/Profile/ExchangeTokenForID" +
+        "?" +
+        "APIKEY=ba9fae31-e8c4-47ba-971c-4567bd5593eb" +
+        "&" +
+        "clientid=501" +
+        "&" +
+        "appid=2086" +
+        "&" +
+        `Token=${token}`
 
       console.log("exchangeTokenUrl", exchangeTokenUrl)
 
